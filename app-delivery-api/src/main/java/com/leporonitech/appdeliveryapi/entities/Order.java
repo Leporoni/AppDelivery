@@ -1,6 +1,6 @@
 package com.leporonitech.appdeliveryapi.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "tb_order")
 @Data
+@NoArgsConstructor
 public class Order implements Serializable {
 
     private static final long serialVersionUID = -2240294678098416906L;
@@ -34,4 +35,7 @@ public class Order implements Serializable {
         joinColumns = @JoinColumn(name = "order_id"),
         inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products = new HashSet<>();
+
+    public Order(Object o, String address, Double latitude, Double longitude, Instant now, OrderStatus pending) {
+    }
 }
