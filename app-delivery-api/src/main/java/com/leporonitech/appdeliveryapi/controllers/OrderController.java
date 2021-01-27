@@ -24,10 +24,16 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderDTO> insert(@RequestBody  OrderDTO orderDTO){
-        orderDTO = orderService.insert(orderDTO);
+    public ResponseEntity<OrderDTO> insert(@RequestBody OrderDTO dto){
+        dto = orderService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(orderDTO.getId()).toUri();
-        return ResponseEntity.created(uri).body(orderDTO);
+                .buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping("/{id}/delivered")
+    public ResponseEntity<OrderDTO> setDelivered(@PathVariable Long id){
+        OrderDTO dto = orderService.setDelivered(id);
+        return ResponseEntity.ok().body(dto);
     }
 }
